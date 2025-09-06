@@ -11,8 +11,8 @@ sudo update-alternatives --config vim
 
 ## Add below config to ~/.vimrc to enable yankking to system clipboard
 
-" Use system clipboard as default
-set clipboard=unnamedplus  " For Linux (uses "+ register)
+" Use system clipboard as default \
+set clipboard=unnamedplus
 
 ## Install fzf
 
