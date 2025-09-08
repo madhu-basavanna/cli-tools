@@ -30,9 +30,11 @@ To use system clipboard as default
 
 ## If unknown command --bash error for fzf then
 
-Source the fzf key bindings and completion
+Source the fzf key bindings and make them persistant across new terminal session by adding the below command to ~/.bashrc
 
-`source /usr/share/doc/fzf/examples/key-bindings.bash`
+`if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+    source /usr/share/doc/fzf/examples/key-bindings.bash
+fi`
 
 Below are the suggested fix by Deepseek but didn't find those paths in the server after fzf installation, Keeeping these commands for informational purpose just the above keybindings commands is enough
 
