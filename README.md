@@ -2,13 +2,15 @@
 
 ## Replace default vim with vim-gtk3
 
+### 1. Download vim-gtk3
+
 `sudo apt-get install vim-gtk3`
 
-## Verify current setup and update the default to vim-gtk3
+### 2. Verify current setup and update the default to vim-gtk3
 
 `sudo update-alternatives --config vim`
 
-## Add below config to ~/.vimrc to enable yankking to system clipboard
+### 3. Add below config to ~/.vimrc to enable yankking to system clipboard
 
 To use system clipboard as default
 
@@ -16,9 +18,11 @@ To use system clipboard as default
 
 ## Install fzf
 
+### 1. Download fzf
+
 `sudo apt install fzf`
 
-## Add this to ~/.bashrc to enable fzf and also use the gcb to git checkout
+### 2. Add this to ~/.bashrc to enable fzf and also use the gcb to git checkout
 
 `eval "$(fzf --bash)"`
 
@@ -28,7 +32,7 @@ To use system clipboard as default
                     --height 40% --layout reverse
 }`
 
-## If unknown command --bash error for fzf then
+### 3. If unknown command --bash error for fzf then
 
 Source the fzf key bindings and make them persistant across new terminal session by adding the below command to ~/.bashrc
 
@@ -45,3 +49,21 @@ Alternative paths
 `source /usr/share/fzf/key-bindings.bash`
 
 `source /usr/share/fzf/completion.bash`
+
+## Install zellij via terminal
+
+### 1. Download
+`curl -L -o zellij.tar.gz "https://github.com/zellij-org/zellij/releases/latest/download/zellij-x86_64-unknown-linux-gnu.tar.gz"`
+
+### 2. Verify it arrived
+`ls -lh zellij.tar.gz`
+
+### 3. Extract everything
+`tar -xzf zellij.tar.gz`
+
+### 4. See what came out
+`ls -l`
+
+### 5. Make it executable and move it to bin to use everywhere 
+`chmod +x zellij`          # make it executable
+`sudo mv zellij /usr/local/bin/`   # put it on your PATH
