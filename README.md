@@ -33,9 +33,11 @@ To use system clipboard as default
 Source the fzf key bindings and completion
 
 `source /usr/share/doc/fzf/examples/key-bindings.bash`
+
 `source /usr/share/doc/fzf/examples/completion.bash`
 
 Alternative paths
 
 `source /usr/share/fzf/key-bindings.bash`
+
 `source /usr/share/fzf/completion.bash`
