@@ -19,14 +19,13 @@ To use system clipboard as default
 
 ## Add this to ~/.bashrc to enable fzf and also use the gcb to git checkout
 
-`bash`
-eval "$(fzf --bash)"
+`eval "$(fzf --bash)"`
 
-gcb() {
+`gcb() {
     git branch | fzf --preview 'git show --color=always {-1}' \
                     --bind 'enter:become(git checkout {-1})' \
                     --height 40% --layout reverse
-}
+}`
 
 ## If unknown command --bash error for fzf then
 
