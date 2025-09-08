@@ -34,6 +34,8 @@ Source the fzf key bindings and completion
 
 `source /usr/share/doc/fzf/examples/key-bindings.bash`
 
+Below are the suggested fix by Deepseek but didn't find those paths in the server after fzf installation, Keeeping these commands for informational purpose just the above keybindings commands is enough
+
 `source /usr/share/doc/fzf/examples/completion.bash`
 
 Alternative paths
