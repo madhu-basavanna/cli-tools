@@ -11,6 +11,7 @@
 ## Add below config to ~/.vimrc to enable yankking to system clipboard
 
 To use system clipboard as default
+
 `set clipboard=unnamedplus`
 
 ## Install fzf
