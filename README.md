@@ -5,13 +5,13 @@
 ### 1. Download vim-gtk3
 
 ```bash
-sudo apt-get install vim-gtk3`
+sudo apt-get install vim-gtk3
 ```
 
 ### 2. Verify current setup and update the default to vim-gtk3
 
 ```bash
-sudo update-alternatives --config vim`
+sudo update-alternatives --config vim
 ```
 
 ### 3. Add below config to ~/.vimrc to enable yankking to system clipboard and display line number
@@ -34,7 +34,7 @@ set relativenumber
 ### 1. Download fzf
 
 ```bash
-sudo apt install fzf`
+sudo apt install fzf
 ```
 
 ### 2. Add this to ~/.bashrc to enable fzf and also use the gcb to git checkout
@@ -62,7 +62,7 @@ fi
 Below are the suggested fix by Deepseek but didn't find those paths in the server after fzf installation, Keeeping these commands for informational purpose just the above keybindings commands is enough
 
 ```bash
-source /usr/share/doc/fzf/examples/completion.bash`
+source /usr/share/doc/fzf/examples/completion.bash
 ```
 
 Alternative paths
