@@ -24,19 +24,22 @@ sudo nala install vim-gtk3
 sudo update-alternatives --config vim
 ```
 
-### 3. Add below config to ~/.vimrc to enable yankking to system clipboard and display line number
+### 3. Add below config to ~/.vimrc to enable yankking to system clipboard, display line number and key bindings for save and quit
 
 To use system clipboard as default
 
 ```vim
 set clipboard=unnamedplus
-```
-
-To display line number in vim editor
-
-```vim
 set number
 set relativenumber
+
+" Map Ctrl+S to save only
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>a
+
+" Map Ctrl+Q to quit
+nnoremap <C-q> :q<CR>
+inoremap <C-q> <Esc>:q<CR>a
 ```
 
 ## Install fzf and zoxide
