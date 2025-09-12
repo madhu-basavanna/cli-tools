@@ -1,11 +1,21 @@
 # Install essential cli tools
 
+## Install nala (Better APT frontend)
+
+### 1. Install nala package manager
+
+```bash
+sudo apt install nala
+```
+
+nala is a frontend for APT with better output, parallel downloads, and improved user experience.
+
 ## Replace default vim with vim-gtk3
 
 ### 1. Download vim-gtk3
 
 ```bash
-sudo apt-get install vim-gtk3
+sudo nala install vim-gtk3
 ```
 
 ### 2. Verify current setup and update the default to vim-gtk3
@@ -34,7 +44,7 @@ set relativenumber
 ### 1. Download fzf
 
 ```bash
-sudo apt install fzf
+sudo nala install fzf
 ```
 
 ### 2. Add this to ~/.bashrc to enable fzf and also use the gcb to git checkout
