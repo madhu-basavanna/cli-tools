@@ -42,15 +42,15 @@ nnoremap <C-q> :q<CR>
 inoremap <C-q> <Esc>:q<CR>a
 ```
 
-## Install fzf and zoxide
+## Install fzf, zoxide and fd-find
 
 ### 1. Download fzf
 
 ```bash
-sudo nala install fzf zoxide
+sudo nala install fzf zoxide fd-find
 ```
 
-### 2. Add this to ~/.bashrc to enable fzf and also use the gcb to git checkout
+### 2. Add this to ~/.bashrc to enable packages
 
 ```bash
 eval "$(fzf --bash)"
@@ -71,6 +71,15 @@ zi() {
 
 # Alt + d to open recent dir and search
 bind '"\ed":"zi\n"'
+
+alias fd=fdfind
+
+ff() {
+  local file editor
+  editor=$(command -v vim || command -v nvim)
+  file=$(fd -HI --type f . | fzf --preview 'sed -n "1,200p" {}' --height 40% --reverse )
+  [ -n "$file" ] && "$editor" "$file"
+}
 ```
 
 ### 3. If unknown command --bash error for fzf then
