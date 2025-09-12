@@ -82,34 +82,6 @@ source /usr/share/fzf/key-bindings.bash
 source /usr/share/fzf/completion.bash
 ```
 
-## Install Nerd Font
-
-### 1. Create fonts directory if it doesn't exist
-
-```bash
-mkdir -p ~/.local/share/fonts
-```
-
-### 2. Download Nerd Font (JetBrains Mono)
-
-```bash
-cd ~/.local/share/fonts
-curl -fLo "JetBrains Mono Regular Nerd Font Complete.ttf" \
-  https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/JetBrainsMono/Ligatures/Regular/JetBrainsMonoNerdFont-Regular.ttf
-```
-
-### 3. Refresh font cache
-
-```bash
-fc-cache -fv
-```
-
-### 4. Verify installation
-
-```bash
-fc-list | grep -i jetbrains
-```
-
 ## Optional
 
 [optional](optional.md)
