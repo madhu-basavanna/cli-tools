@@ -39,12 +39,12 @@ set number
 set relativenumber
 ```
 
-## Install fzf
+## Install fzf and zoxide
 
 ### 1. Download fzf
 
 ```bash
-sudo nala install fzf
+sudo nala install fzf zoxide
 ```
 
 ### 2. Add this to ~/.bashrc to enable fzf and also use the gcb to git checkout
@@ -57,6 +57,17 @@ gcb() {
                     --bind 'enter:become(git checkout {-1})' \
                     --height 40% --layout reverse
 }
+
+eval "$(zoxide init bash)"
+
+# Use zoxide's interactive mode with fzf
+zi() {
+  local dir
+  dir=$(zoxide query -i -- "$@") && cd "$dir"
+}
+
+# Alt + d to open recent dir and search
+bind '"\ed":"zi\n"'
 ```
 
 ### 3. If unknown command --bash error for fzf then
