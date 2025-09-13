@@ -42,12 +42,12 @@ nnoremap <C-q> :q<CR>
 inoremap <C-q> <Esc>:q<CR>a
 ```
 
-## Install fzf, zoxide and fd-find
+## Install curl, fzf, zoxide and fd-find
 
 ### 1. Download fzf
 
 ```bash
-sudo nala install fzf zoxide fd-find
+sudo nala install curl fzf zoxide fd-find
 ```
 
 ### 2. Add this to ~/.bashrc to enable packages
