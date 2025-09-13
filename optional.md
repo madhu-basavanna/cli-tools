@@ -12,8 +12,7 @@ mkdir -p ~/.local/share/fonts
 
 ```bash
 cd ~/.local/share/fonts
-curl -fLo "JetBrains Mono Regular Nerd Font Complete.ttf" \
-  https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/JetBrainsMono/Ligatures/Regular/JetBrainsMonoNerdFont-Regular.ttf
+curl -L -o HackNerdFont-Regular.ttf "https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/HackNerdFont-Regular.ttf"
 ```
 
 ### 3. Refresh font cache
