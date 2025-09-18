@@ -24,6 +24,11 @@ sudo nala install vim-gtk3
 sudo update-alternatives --config vim
 ```
 
+#### optional if some other terminal emulator is installed and if you want to set it to default use
+```
+sudo update-alternatives --config x-terminal-emulator
+```
+
 ### 3. Add below config to ~/.vimrc to enable yankking to system clipboard, display line number and key bindings for save and quit
 
 To use system clipboard as default
