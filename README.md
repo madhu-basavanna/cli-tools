@@ -60,10 +60,12 @@ sudo nala install curl fzf zoxide fd-find
 ```bash
 eval "$(fzf --bash)"
 
-gcb() {
-    git branch | fzf --preview 'git show --color=always {-1}' \
-                    --bind 'enter:become(git checkout {-1})' \
-                    --height 40% --layout reverse
+# if you select the alredy active branch thorws an error
+gsb() {
+    git branch -a | fzf \
+        --preview 'git show --color=always {1}' \
+        --bind 'enter:become(git switch $(echo {1} | sed "s#remotes/origin/##"))' \
+        --height 40% --layout=reverse
 }
 
 eval "$(zoxide init bash)"
