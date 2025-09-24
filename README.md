@@ -58,6 +58,9 @@ sudo nala install curl fzf zoxide fd-find
 ### 2. Add this to ~/.bashrc to enable packages
 
 ```bash
+# To enable vim motions in bash shell
+set -o vi
+
 eval "$(fzf --bash)"
 
 # if you select the alredy active branch thorws an error
