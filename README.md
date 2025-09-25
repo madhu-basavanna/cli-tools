@@ -98,7 +98,7 @@ rgn() {
 # Usage: rgn docker prune
 
 # Generic search to specify the folder
-rgor() { rg "$1.*$2|$2.*$1" "${3:-.}"; }
+rgd() { rg "$1.*$2|$2.*$1" "${3:-.}"; }
 ```
 
 <details>
