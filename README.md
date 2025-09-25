@@ -90,6 +90,15 @@ ff() {
   file=$(fd -HI --type f . | fzf --preview 'sed -n "1,200p" {}' --height 40% --reverse )
   [ -n "$file" ] && "$editor" "$file"
 }
+
+# Search for multiple terms (OR logic) in Notes folder
+rgn() {
+    rg "$1.*$2|$2.*$1" ~/Notes
+}
+# Usage: rgn docker prune
+
+# Generic search to specify the folder
+rgor() { rg "$1.*$2|$2.*$1" "${3:-.}"; }
 ```
 
 <details>
