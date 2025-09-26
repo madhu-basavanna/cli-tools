@@ -58,10 +58,19 @@ sudo nala install curl fzf zoxide fd-find
 ### 2. Add this to ~/.bashrc to enable packages
 
 ```bash
+# Setup color for bash
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
 # To enable vim motions in bash shell
 set -o vi
 
-eval "$(fzf --bash)"
+# For laptop
+# eval "$(fzf --bash)"
+
+# For server
+if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+    source /usr/share/doc/fzf/examples/key-bindings.bash
+fi
 
 # if you select the alredy active branch thorws an error
 gsb() {
