@@ -100,14 +100,9 @@ ff() {
   [ -n "$file" ] && "$editor" "$file"
 }
 
-# Search for multiple terms (OR logic) in Notes folder
-rgn() {
-    rg "$1.*$2|$2.*$1" ~/Notes
-}
-# Usage: rgn docker prune
-
 # Generic search to specify the folder
 rgd() { rg "$1.*$2|$2.*$1" "${3:-.}"; }
+# Usage: rgn docker prune
 ```
 
 <details>
