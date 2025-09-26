@@ -47,6 +47,15 @@ nnoremap <C-q> :q<CR>
 inoremap <C-q> <Esc>:q<CR>a
 ```
 
+### 4. Enable mouse and vi mode for tmux
+
+Add the below code to ~/.tmux.conf
+
+```bash
+set -g mouse on
+setw -g mode-keys vi
+```
+
 ## Install curl, fzf, zoxide and fd-find
 
 ### 1. Download fzf
