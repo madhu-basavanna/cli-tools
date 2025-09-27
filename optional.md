@@ -1,5 +1,19 @@
 # Optional CLI Tools
 
+## Install zsh and set it up as default shell
+
+### 1. Install zsh
+
+```bash
+sudo nala install zsh
+```
+
+### 2. Change your default shell to zsh
+
+```bash
+chsh -s $(which zsh)
+```
+
 ## Install Nerd Font
 
 ### 1. Create fonts directory if it doesn't exist
