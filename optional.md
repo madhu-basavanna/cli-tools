@@ -38,8 +38,8 @@ setopt extendedglob
 bindkey -v
 # End of lines configured by zsh-newuser-install
 
-# Simple colored prompt
-PROMPT='%F{green}%n%f@%F{blue}%m%f%# '
+# Two line colored prompt
+PROMPT='%F{green}%n%f@%F{blue}%m%f:%F{yellow}%~%f'$'\n''%# '
 
 # For laptop
 eval "$(fzf --zsh)"
