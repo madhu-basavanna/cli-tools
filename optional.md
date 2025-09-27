@@ -16,6 +16,7 @@ chsh -s $(which zsh)
 
 ### 3. Add this to your ~/.zshrc
 ```bash
+
 # The following lines were added by compinstall
 
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
@@ -41,7 +42,7 @@ bindkey -v
 PROMPT='%F{green}%n%f@%F{blue}%m%f%# '
 
 # For laptop
-eval "$(fzf --bash)"
+eval "$(fzf --zsh)"
 
 # if you select the alredy active branch thorws an error
 gsb() {
@@ -51,7 +52,7 @@ gsb() {
         --height 40% --layout=reverse
 }
 
-eval "$(zoxide init bash)"
+eval "$(zoxide init zsh)"
 
 # Use zoxide's interactive mode with fzf
 zi() {
@@ -60,7 +61,7 @@ zi() {
 }
 
 # Alt + d to open recent dir and search
-bind '"\ed":"zi\n"'
+bindkey "\ed" zi
 
 alias fd=fdfind
 
