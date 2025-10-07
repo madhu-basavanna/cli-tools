@@ -29,19 +29,20 @@ sudo update-alternatives --config vim
 sudo update-alternatives --config x-terminal-emulator
 ```
 
-### 3. Install Stow
+### 3. Install curl, stow, fzf, zoxide and fd-find
+
 ```bash
-sudo nala install stow
+sudo nala install curl fzf zoxide fd-find stow
 ```
 
 Create dotfiles dir
 ```bash
-make -p ~/dotfiles
+mkdir -p ~/dotfiles
 ```
 
 Change dir
 ```bash
-ch ~/dotfiles
+cd ~/dotfiles
 ```
 
 ### 4. Git clone the repo
