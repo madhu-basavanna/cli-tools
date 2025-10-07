@@ -35,23 +35,14 @@ sudo update-alternatives --config x-terminal-emulator
 sudo nala install curl fzf zoxide fd-find stow
 ```
 
-Create dotfiles dir
+Create dotfiles dir and switch to it
 ```bash
-mkdir -p ~/dotfiles
-```
-
-Change dir
-```bash
-cd ~/dotfiles
+mkdir -p ~/dotfiles && cd ~/dotfiles
 ```
 
 ### 4. Git clone the repo and initilize the dotfiles
 ```bash
-git clone --recurse-submodules https://github.com/madhu-basavanna/cli-tools.git
-```
-
-```bash
-stow .
+git clone --recurse-submodules https://github.com/madhu-basavanna/cli-tools.git . && stow .
 ```
 
 ## Optional
