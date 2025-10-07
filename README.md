@@ -29,10 +29,15 @@ sudo update-alternatives --config vim
 sudo update-alternatives --config x-terminal-emulator
 ```
 
-### 3. Install curl, stow, fzf, zoxide and fd-find
+### 3. Install zsh, curl, stow, fzf, zoxide and fd-find
 
 ```bash
-sudo nala install curl fzf zoxide fd-find stow
+sudo nala install curl fzf zoxide fd-find stow zsh
+```
+
+Change shell from bash to zsh
+```bash
+chsh -s $(which zsh)
 ```
 
 Create dotfiles dir and switch to it
