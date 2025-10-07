@@ -51,14 +51,14 @@ gsb() {
 
 eval "$(zoxide init zsh)"
 
-# Use zoxide's interactive mode with fzf
-zi() {
+# Use zoxide's interactive mode with fzf as a zsh widget
+zi-widget() {
   local dir
-  dir=$(zoxide query -i -- "$@") && cd "$dir"
+  dir=$(zoxide query -i) && cd "$dir"
+  zle reset-prompt
 }
-
-# Alt + d to open recent dir and search
-bindkey "\ed" zi
+zle -N zi-widget
+bindkey "\ed" zi-widget
 
 alias fd=fdfind
 
