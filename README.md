@@ -37,6 +37,8 @@ sudo nala install curl fzf zoxide fd-find stow zsh
 
 Change shell from bash to zsh
 ```bash
+sudo usermod -s /usr/bin/zsh $USER
+sudo chsh -s /usr/bin/zsh $USER
 chsh -s $(which zsh)
 ```
 
