@@ -45,9 +45,13 @@ Change dir
 cd ~/dotfiles
 ```
 
-### 4. Git clone the repo
+### 4. Git clone the repo and initilize the dotfiles
 ```bash
 git clone --recurse-submodules https://github.com/madhu-basavanna/cli-tools.git
+```
+
+```bash
+stow .
 ```
 
 ## Optional
