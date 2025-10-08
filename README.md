@@ -29,7 +29,7 @@ sudo update-alternatives --config vim
 sudo update-alternatives --config x-terminal-emulator
 ```
 
-### 3. Install zsh, curl, stow, fzf, zoxide and fd-find
+### 3. Install zsh, curl, stow, fzf, zoxide, ripgrep and fd-find
 
 ```bash
 sudo nala install curl fzf zoxide fd-find stow zsh
