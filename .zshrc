@@ -69,6 +69,30 @@ ff() {
   [ -n "$file" ] && "$editor" "$file"
 }
 
+
+rgn() { rg "$1.*$2|$2.*$1" "$HOME/Notes"; }
+
 # Generic search to specify the folder
 rgd() { rg "$1.*$2|$2.*$1" "${3:-.}"; }
 # Usage: rgn docker prune
+
+# Enable dynamic terminal titles
+autoload -Uz add-zsh-hook
+
+# Function to set title
+set_title() {
+  # Get user@host if SSH, otherwise just current dir
+  if [[ -n $SSH_CONNECTION ]]; then
+    print -Pn "\e]2;SSH: [%m] - %~\a"
+  else
+    print -Pn "\e]2;%n@%m - %~\a"
+  fi
+}
+
+# Update title on every prompt
+add-zsh-hook precmd set_title
+
+alias ld=lazydocker
+alias lg=lazygit
+alias ls=lazyssh
+
