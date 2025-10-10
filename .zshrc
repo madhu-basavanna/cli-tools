@@ -94,7 +94,7 @@ add-zsh-hook precmd set_title
 
 alias ld=lazydocker
 alias lg=lazygit
-alias ls=lazyssh
+alias lssh=lazyssh
 alias lj=lazyjournal
 alias ta='tmux attach'
 alias tn='tmux new-session -s'
