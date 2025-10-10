@@ -64,7 +64,7 @@ alias fd=fdfind
 
 ff() {
   local file editor
-  editor=$(command -v vim || command -v nvim)
+  editor=$(command -v nvim || command -v vim)
   file=$(fd -HI --type f . | fzf --preview 'sed -n "1,200p" {}' --height 40% --reverse )
   [ -n "$file" ] && "$editor" "$file"
 }
@@ -95,4 +95,7 @@ add-zsh-hook precmd set_title
 alias ld=lazydocker
 alias lg=lazygit
 alias ls=lazyssh
-
+alias lj=lazyjournal
+alias ta='tmux attach'
+alias tn='tmux new-session -s'
+alias tl='tmux ls'
