@@ -76,26 +76,13 @@ rgn() { rg "$1.*$2|$2.*$1" "$HOME/Notes"; }
 rgd() { rg "$1.*$2|$2.*$1" "${3:-.}"; }
 # Usage: rgn docker prune
 
-# Enable dynamic terminal titles
-autoload -Uz add-zsh-hook
-
-# Function to set title
-set_title() {
-  # Get user@host if SSH, otherwise just current dir
-  if [[ -n $SSH_CONNECTION ]]; then
-    print -Pn "\e]2;SSH: [%m] - %~\a"
-  else
-    print -Pn "\e]2;%n@%m - %~\a"
-  fi
-}
-
-# Update title on every prompt
-add-zsh-hook precmd set_title
-
 alias ld=lazydocker
 alias lg=lazygit
 alias lssh=lazyssh
 alias lj=lazyjournal
-alias ta='tmux attach'
+alias tat='tmux attach -t'
+alias ta-'tmux attach'
 alias tn='tmux new-session -s'
 alias tl='tmux ls'
+
+. "$HOME/.local/bin/env"
