@@ -31,24 +31,6 @@ eval "$(fzf --zsh)"
 #  source /usr/share/doc/fzf/examples/key-bindings.zsh
 #fi
 
-# Load environment variables from ~/.env file
-  if [ -f ~/.env ]; then
-      while IFS= read -r line; do
-          # Skip empty lines and comments
-          if [ -n "$line" ] && [[ ! "$line" =~ ^[[:space:]]*# ]]; then
-              export "$line"
-          fi
-      done < ~/.env
-  fi
-
-# if you select the alredy active branch thorws an error
-gsb() {
-    git branch -a | fzf \
-        --preview 'git show --color=always {1}' \
-        --bind 'enter:become(git switch $(echo {1} | sed "s#remotes/origin/##"))' \
-        --height 40% --layout=reverse
-}
-
 eval "$(zoxide init zsh)"
 
 # Use zoxide's interactive mode with fzf as a zsh widget
@@ -84,5 +66,6 @@ alias tat='tmux attach -t'
 alias ta-'tmux attach'
 alias tn='tmux new-session -s'
 alias tl='tmux ls'
+alias ll='ls -la'
 
 . "$HOME/.local/bin/env"
