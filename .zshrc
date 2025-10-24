@@ -51,6 +51,13 @@ ff() {
   [ -n "$file" ] && "$editor" "$file"
 }
 
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
 
 rgn() { rg "$1.*$2|$2.*$1" "$HOME/Notes"; }
 
@@ -63,9 +70,14 @@ alias lg=lazygit
 alias lssh=lazyssh
 alias lj=lazyjournal
 alias tat='tmux attach -t'
-alias ta-'tmux attach'
+alias ta='tmux attach'
 alias tn='tmux new-session -s'
 alias tl='tmux ls'
 alias ll='ls -la'
+alias ki='kitten icat'
+
+export TERM=xterm-256color
+export EDITOR=nvim
+export VISUAL=nvim
 
 . "$HOME/.local/bin/env"
