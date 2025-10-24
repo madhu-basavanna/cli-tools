@@ -32,7 +32,7 @@ sudo update-alternatives --config x-terminal-emulator
 ### 3. Install zsh, curl, stow, fzf, zoxide, ripgrep and fd-find
 
 ```bash
-sudo nala install curl fzf zoxide fd-find stow zsh
+sudo nala install curl fzf zoxide fd-find stow zsh fastfetch eza btop
 ```
 
 Change shell from bash to zsh
