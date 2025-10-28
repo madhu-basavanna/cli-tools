@@ -44,6 +44,7 @@ bindkey "\ed" zi-widget
 
 alias fd=fdfind
 
+# fdfind to work with fzf to display list of file names
 ff() {
   local file editor
   editor=$(command -v nvim || command -v vim)
@@ -51,6 +52,7 @@ ff() {
   [ -n "$file" ] && "$editor" "$file"
 }
 
+# yazi to get current working dir context
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
@@ -58,6 +60,16 @@ function y() {
 	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
+
+# Load environment variables from ~/.env file
+if [ -f ~/.env ]; then
+  while IFS= read -r line; do
+    # Skip empty lines and comments
+    if [ -n "$line" ] && [[ ! "$line" =~ ^[[:space:]]*# ]]; then
+	export "$line"
+    fi
+  done < ~/.env
+fi
 
 rgn() { rg "$1.*$2|$2.*$1" "$HOME/Notes"; }
 
