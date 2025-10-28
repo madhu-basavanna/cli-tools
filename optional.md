@@ -1,7 +1,8 @@
 # Optional CLI Tools
 
-## Install zsh and set it up as default shell
-
+<details>
+<summary>Install zsh and set it up as default shell</summary>
+    
 ### 1. Install zsh
 
 ```bash
@@ -76,7 +77,10 @@ ff() {
 rgd() { rg "$1.*$2|$2.*$1" "${3:-.}"; }
 # Usage: rgn docker prune
 ```
-## Install Nerd Font
+</details>
+
+<details>
+<summary>Install Nerd Font</summary>
 
 ### 1. Create fonts directory if it doesn't exist
 
@@ -102,8 +106,10 @@ fc-cache -fv
 ```bash
 fc-list | grep -i jetbrains
 ```
+</details>
 
-## Setup tmux
+<details>
+<summary>Setup tmux</summary>
 
 ### 1. Download and setup the tmux-plugin-manager
 ```bash
@@ -152,8 +158,10 @@ bind % split-window -h -c "#{pane_current_path}"
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
 ```
+</details>
 
-## Install zellij via terminal
+<details>
+<summary>Install zellij via terminal</summary>
 
 ### 1. Download
 ```bash
@@ -187,89 +195,45 @@ put it on your PATH
 ```bash
 sudo mv zellij /usr/local/bin/
 ```
+</details>
 
-### old tmux.conf
+<details>
+<summary>Old docs for bash</summary>
 
-```bash
-# Options to make tmux more pleasant
-set -g mouse on
-set -g escape-time 0
-
-# Terminal and encoding settings optimized for modern terminals like Warp
-set -g default-terminal "tmux-256color"
-
-unbind r
-bind r source-file ~/.config/tmux/tmux.conf
-
-# Shift Alt vim keys to switch windows
-bind -n M-H previous-window
-bind -n M-L next-window
-
-# Start windows and panes at 1, not 0
-set -g base-index 1
-set -g pane-base-index 1
-set-window-option -g pane-base-index 1
-set-option -g renumber-windows on
-
-# List of plugins
-set -g @plugin 'tmux-plugins/tpm'
-set -g @plugin 'tmux-plugins/tmux-yank'
-set -g @plugin 'catppuccin/tmux'
-set -g @plugin 'christoomey/vim-tmux-navigator'
-
-# set vi-mode
-set-window-option -g mode-keys vi
-# keybindings
-bind-key -T copy-mode-vi v send-keys -X begin-selection
-bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
-
-# Open panes in current directory
-bind '"' split-window -v -c "#{pane_current_path}"
-bind % split-window -h -c "#{pane_current_path}"
-
-# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
-run '~/.tmux/plugins/tpm/tpm'
-```
-
-## Old docs
-### 1. Add below config to ~/.vimrc to enable yankking to system clipboard, display line number and key bindings for save and quit
-
-To use system clipboard as default
-
-```vim
-set clipboard=unnamedplus
-set number
-set relativenumber
-
-" Map Ctrl+S to save only
-nnoremap <C-s> :w<CR>
-inoremap <C-s> <Esc>:w<CR>a
-
-" Map Ctrl+Q to quit
-nnoremap <C-q> :q<CR>
-inoremap <C-q> <Esc>:q<CR>a
-```
-
-### 2. Enable mouse and vi mode for tmux
-
-Add the below code to ~/.tmux.conf
+### Add this to ~/.bashrc to enable packages
+Minimal bash setup
 
 ```bash
-set -g mouse on
-setw -g mode-keys vi
+# Setup color for bash
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
+# To enable vim motions in bash shell
+set -o vi
+
+# For laptop
+eval "$(fzf --bash)"
+
+eval "$(zoxide init bash)"
+
+# Use zoxide's interactive mode with fzf
+zi() {
+  local dir
+  dir=$(zoxide query -i -- "$@") && cd "$dir"
+}
+
+# Alt + d to open recent dir and search
+bind '"\ed":"zi\n"'
+
+alias fd=fdfind
+
+ff() {
+  local file editor
+  editor=$(command -v vim || command -v nvim)
+  file=$(fd -HI --type f . | fzf --preview 'sed -n "1,200p" {}' --height 40% --reverse )
+  [ -n "$file" ] && "$editor" "$file"
 ```
 
-## Install curl, fzf, zoxide and fd-find
-
-### 1. Download fzf
-
-```bash
-sudo nala install curl fzf zoxide fd-find
-```
-
-### 2. Add this to ~/.bashrc to enable packages
-
+Complete bash setup
 ```bash
 # Setup color for bash
 PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
@@ -317,6 +281,7 @@ ff() {
 rgd() { rg "$1.*$2|$2.*$1" "${3:-.}"; }
 # Usage: rgn docker prune
 ```
+</details>
 
 <details>
 <summary>If unknown command --bash error for fzf then</summary>
