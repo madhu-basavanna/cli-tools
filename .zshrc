@@ -73,7 +73,9 @@ alias tat='tmux attach -t'
 alias ta='tmux attach'
 alias tn='tmux new-session -s'
 alias tl='tmux ls'
-alias ll='ls -la'
+alias ls='eza'
+alias ll='eza -lah --icons'
+alias l='eza -lh --icons'
 alias ki='kitten icat'
 
 export TERM=xterm-256color
