@@ -210,8 +210,10 @@ PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 # To enable vim motions in bash shell
 set -o vi
 
-# For laptop
-eval "$(fzf --bash)"
+# For server
+if [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]; then
+  source /usr/share/doc/fzf/examples/key-bindings.zsh
+fi
 
 eval "$(zoxide init bash)"
 
@@ -231,7 +233,15 @@ ff() {
   editor=$(command -v vim || command -v nvim)
   file=$(fd -HI --type f . | fzf --preview 'sed -n "1,200p" {}' --height 40% --reverse )
   [ -n "$file" ] && "$editor" "$file"
-```
+}
+
+alias tat='tmux attach -t'
+alias ta='tmux attach'
+alias tn='tmux new-session -s'
+alias tl='tmux ls'
+alias ls='eza'
+alias ll='eza -lah'
+alias l='eza -lh'
 
 Complete bash setup
 ```bash
