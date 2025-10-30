@@ -201,7 +201,6 @@ sudo mv zellij /usr/local/bin/
 <summary>Old docs for bash</summary>
 
 ### Add this to ~/.bashrc to enable packages
-Minimal bash setup
 
 ```bash
 # Setup color for bash
@@ -211,8 +210,8 @@ PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 set -o vi
 
 # For server
-if [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]; then
-  source /usr/share/doc/fzf/examples/key-bindings.zsh
+if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+    source /usr/share/doc/fzf/examples/key-bindings.bash
 fi
 
 eval "$(zoxide init bash)"
@@ -242,55 +241,6 @@ alias tl='tmux ls'
 alias ls='eza'
 alias ll='eza -lah'
 alias l='eza -lh'
-```
-
-Complete bash setup
-```bash
-# Setup color for bash
-PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-
-# To enable vim motions in bash shell
-set -o vi
-
-# For laptop
-# eval "$(fzf --bash)"
-
-# For server
-if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
-    source /usr/share/doc/fzf/examples/key-bindings.bash
-fi
-
-# if you select the alredy active branch thorws an error
-gsb() {
-    git branch -a | fzf \
-        --preview 'git show --color=always {1}' \
-        --bind 'enter:become(git switch $(echo {1} | sed "s#remotes/origin/##"))' \
-        --height 40% --layout=reverse
-}
-
-eval "$(zoxide init bash)"
-
-# Use zoxide's interactive mode with fzf
-zi() {
-  local dir
-  dir=$(zoxide query -i -- "$@") && cd "$dir"
-}
-
-# Alt + d to open recent dir and search
-bind '"\ed":"zi\n"'
-
-alias fd=fdfind
-
-ff() {
-  local file editor
-  editor=$(command -v vim || command -v nvim)
-  file=$(fd -HI --type f . | fzf --preview 'sed -n "1,200p" {}' --height 40% --reverse )
-  [ -n "$file" ] && "$editor" "$file"
-}
-
-# Generic search to specify the folder
-rgd() { rg "$1.*$2|$2.*$1" "${3:-.}"; }
-# Usage: rgn docker prune
 ```
 </details>
 
