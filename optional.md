@@ -242,6 +242,7 @@ alias tl='tmux ls'
 alias ls='eza'
 alias ll='eza -lah'
 alias l='eza -lh'
+```
 
 Complete bash setup
 ```bash
