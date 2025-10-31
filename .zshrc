@@ -89,16 +89,16 @@ alias ll='eza -lah --icons'
 alias l='eza -lh --icons'
 alias ki='kitten icat'
 
-export TERM=xterm-256color
-export EDITOR=nvim
-export VISUAL=nvim
-
 . "$HOME/.local/bin/env"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+export TERM=xterm-256color
+export EDITOR=nvim
+export VISUAL=nvim
+export GPG_TTY=$(tty)
 export GITLAB_TOKEN=$(pass show gitlab)
 export GITHUB_TOKEN=$(pass show github)
 export HF_TOKEN=$(pass show hf)
