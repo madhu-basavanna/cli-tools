@@ -1,0 +1,10 @@
+[Unit]
+Description=GPG Agent
+Requires=gpg-agent.socket
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/gpg-agent --daemon
+
+[Install]
+WantedBy=default.target
