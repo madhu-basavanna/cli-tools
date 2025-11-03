@@ -5,6 +5,18 @@
 
 ### Add this to ~/.bashrc to enable packages
 ```bash
+# Bash history configuration
+HISTFILE=~/.bash_history
+HISTSIZE=10000
+HISTFILESIZE=10000
+HISTCONTROL=ignorespace:erasedups
+HISTIGNORE="&:ls:ll:la:l.:pwd:exit:clear:history"
+
+# Enable history options
+shopt -s histappend    # Append to history file, don't overwrite
+shopt -s cmdhist       # Save multi-line commands as one entry
+shopt -s lithist       # Preserve newlines in history
+
 # Setup color for bash
 PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
