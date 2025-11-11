@@ -113,8 +113,7 @@ set-option -g renumber-windows on
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-yank'
-set -g @plugin 'catppuccin/tmux'
-# set -g @plugin 'christoomey/vim-tmux-navigator'
+set -g @plugin 'christoomey/vim-tmux-navigator'
 
 # set vi-mode
 set-window-option -g mode-keys vi
