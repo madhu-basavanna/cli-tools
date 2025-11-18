@@ -23,6 +23,7 @@ PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 # To enable vim motions in bash shell
 set -o vi
 
+alias cl='clear'
 alias tat='tmux attach -t'
 alias ta='tmux attach'
 alias tn='tmux new-session -s'
