@@ -23,6 +23,11 @@ PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 # To enable vim motions in bash shell
 set -o vi
 
+alias tat='tmux attach -t'
+alias ta='tmux attach'
+alias tn='tmux new-session -s'
+alias tl='tmux ls'
+
 # For server
 if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
     source /usr/share/doc/fzf/examples/key-bindings.bash
@@ -48,10 +53,6 @@ ff() {
   [ -n "$file" ] && "$editor" "$file"
 }
 
-alias tat='tmux attach -t'
-alias ta='tmux attach'
-alias tn='tmux new-session -s'
-alias tl='tmux ls'
 alias ls='eza'
 alias ll='eza -lah'
 alias l='eza -lh'
