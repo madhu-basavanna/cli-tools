@@ -58,6 +58,7 @@ eval "$(fzf --zsh)"
 #  source /usr/share/doc/fzf/examples/key-bindings.zsh
 #fi
 
+eval "$(navi widgetrzsh)"
 eval "$(zoxide init zsh)"
 
 # Use zoxide's interactive mode with fzf as a zsh widget
@@ -104,6 +105,7 @@ rgn() { rg "$1.*$2|$2.*$1" "$HOME/Notes"; }
 rgd() { rg "$1.*$2|$2.*$1" "${3:-.}"; }
 # Usage: rgn docker prune
 
+alias cl=clear
 alias ld=lazydocker
 alias lg=lazygit
 alias lssh=lazyssh
