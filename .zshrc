@@ -58,7 +58,7 @@ eval "$(fzf --zsh)"
 #  source /usr/share/doc/fzf/examples/key-bindings.zsh
 #fi
 
-eval "$(navi widgetrzsh)"
+eval "$(navi widget zsh)"
 eval "$(zoxide init zsh)"
 
 # Use zoxide's interactive mode with fzf as a zsh widget
@@ -132,3 +132,4 @@ export GPG_TTY=$(tty)
 #export GITLAB_TOKEN=$(pass show gitlab)
 #export GITHUB_TOKEN=$(pass show github)
 #export HF_TOKEN=$(pass show hf)
+export PATH="$HOME/.cargo/bin:$PATH"
