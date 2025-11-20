@@ -183,3 +183,9 @@ source /usr/share/fzf/completion.bash
 ```
 </details>
 
+
+<details>
+<summary>Website to find .deb binaries for latest linux cli tools</summary>
+    
+[griffo](https://debian.griffo.io/)
+</details>
