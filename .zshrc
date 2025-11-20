@@ -53,11 +53,6 @@ PROMPT='%F{green}%n%f@%F{blue}%m%f:%F{yellow}%~%f'$'\n''%# '
 # For laptop
 eval "$(fzf --zsh)"
 
-# For server
-#if [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]; then
-#  source /usr/share/doc/fzf/examples/key-bindings.zsh
-#fi
-
 eval "$(zoxide init zsh)"
 
 # Use zoxide's interactive mode with fzf as a zsh widget
@@ -104,15 +99,60 @@ rgn() { rg "$1.*$2|$2.*$1" "$HOME/Notes"; }
 rgd() { rg "$1.*$2|$2.*$1" "${3:-.}"; }
 # Usage: rgn docker prune
 
+# =============================
+# ZELLIJ POWER ALIASES + HELPERS
+# =============================
+
+alias z='zellij'
+alias zls='zellij list-sessions'
+alias zk='zellij kill-session'
+alias zka='zellij kill-all-sessions'
+# New session
+alias zn='zellij --session'
+
+# Attach to the last/most recent session
+za() {
+  local last
+  last=$(zellij list-sessions --short | tail -n 1)
+
+  if [ -z "$last" ]; then
+    echo "No sessions available."
+    return 1
+  fi
+
+  echo "Attaching to last session: $last"
+  zellij attach "$last"
+}
+
+# Attach/create
+zac() {
+  if [ -z "$1" ]; then
+    echo "Usage: za <session-name>"
+    return 1
+  fi
+  zellij attach --create "$1"
+}
+
+# FZF picker
+zf() {
+  local session
+  session=$(zellij list-sessions --short |
+    fzf --height=40% --reverse --border --prompt="Select session: ")
+  [ -n "$session" ] && zellij attach "$session"
+}
+
+# Project folder based session
+zp() {
+  local name="$(basename "$PWD")"
+  echo "Opening session: $name"
+  zellij attach --create "$name"
+}
+
 alias cl=clear
 alias ld=lazydocker
 alias lg=lazygit
 alias lssh=lazyssh
 alias lj=lazyjournal
-alias tat='tmux attach -t'
-alias ta='tmux attach'
-alias tn='tmux new-session -s'
-alias tl='tmux ls'
 alias ls='eza'
 alias ll='eza -lah --icons'
 alias l='eza -lh --icons'
@@ -124,7 +164,7 @@ export TERM=xterm-256color
 export EDITOR=nvim
 export VISUAL=nvim
 export GPG_TTY=$(tty)
+export PATH="$HOME/.cargo/bin:$PATH"
 #export GITLAB_TOKEN=$(pass show gitlab)
 #export GITHUB_TOKEN=$(pass show github)
 #export HF_TOKEN=$(pass show hf)
-export PATH="$HOME/.cargo/bin:$PATH"
