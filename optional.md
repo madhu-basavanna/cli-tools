@@ -183,9 +183,109 @@ source /usr/share/fzf/completion.bash
 ```
 </details>
 
-
 <details>
 <summary>Website to find .deb binaries for latest linux cli tools</summary>
     
 [griffo](https://debian.griffo.io/)
+</details>
+
+<details>
+<summary>Neovim installation script</summary>
+    
+```bash
+#!/bin/bash
+
+set -e  # Exit on any error
+
+echo "=========================================="
+echo "Neovim Installation Script"
+echo "=========================================="
+echo ""
+
+# Function to run command with sudo only if needed
+run_with_sudo() {
+    if [ "$EUID" -eq 0 ]; then
+        # Already running as root
+        "$@"
+    elif command -v sudo &> /dev/null; then
+        # sudo is available
+        sudo "$@"
+    else
+        # Try without sudo
+        "$@"
+    fi
+}
+
+# Install required dependencies
+echo "Installing required dependencies..."
+run_with_sudo apt update
+run_with_sudo apt install -y git build-essential ripgrep fd-find curl
+
+echo ""
+echo "----------------------------------------"
+echo "Installing Neovim..."
+echo "----------------------------------------"
+
+# Download the latest Neovim tarball
+echo "Downloading Neovim..."
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+
+# Extract the tarball
+echo "Extracting Neovim..."
+tar xzvf nvim-linux-x86_64.tar.gz
+
+# Remove old installation if it exists
+echo "Removing old Neovim installation..."
+run_with_sudo rm -rf /opt/nvim
+
+# Create the directory
+echo "Creating /opt/nvim directory..."
+run_with_sudo mkdir -p /opt/nvim
+
+# Move the extracted files to /opt/nvim
+echo "Installing Neovim to /opt/nvim..."
+run_with_sudo mv nvim-linux-x86_64/* /opt/nvim/
+
+# Add to PATH permanently
+if ! grep -q 'export PATH=.*:/opt/nvim/bin' ~/.bashrc; then
+    echo 'export PATH="$PATH:/opt/nvim/bin"' >> ~/.bashrc
+    echo "Added Neovim to PATH in ~/.bashrc"
+fi
+
+# Clean up Neovim installation files
+echo "Cleaning up installation files..."
+rm -rf nvim-linux-x86_64 nvim-linux-x86_64.tar.gz
+
+echo ""
+echo "----------------------------------------"
+echo "Installing Neovim configuration..."
+echo "----------------------------------------"
+
+# Backup existing Neovim config if it exists
+if [ -d ~/.config/nvim ]; then
+    echo "Backing up existing Neovim config..."
+    mv ~/.config/nvim ~/.config/nvim.backup.$(date +%Y%m%d_%H%M%S)
+fi
+
+# Create .config directory if it doesn't exist
+mkdir -p ~/.config
+
+# Clone your Neovim config
+echo "Cloning nvim-config from GitHub..."
+git clone https://github.com/madhu-basavanna/nvim-config.git ~/.config/nvim
+
+echo ""
+echo "=========================================="
+echo "✓ Dependencies installed successfully!"
+echo "✓ Neovim installed successfully!"
+echo "✓ Configuration cloned successfully!"
+echo "=========================================="
+echo ""
+echo "Next steps:"
+echo "1. Run: exec bash"
+echo "   (or restart your terminal)"
+echo "2. Launch nvim and let lazy.nvim install plugins"
+echo "3. Run :checkhealth in nvim to verify installation"
+echo ""
+```
 </details>
