@@ -190,7 +190,7 @@ source /usr/share/fzf/completion.bash
 </details>
 
 <details>
-<summary>Neovim installation script</summary>
+<summary>Dev Setup with bash and neovim</summary>
     
 ```bash
 #!/bin/bash
@@ -198,7 +198,7 @@ source /usr/share/fzf/completion.bash
 set -e  # Exit on any error
 
 echo "=========================================="
-echo "Neovim Installation Script"
+echo "Development Environment Setup"
 echo "=========================================="
 echo ""
 
@@ -216,10 +216,131 @@ run_with_sudo() {
     fi
 }
 
-# Install required dependencies
-echo "Installing required dependencies..."
+echo "----------------------------------------"
+echo "Installing Required Dependencies..."
+echo "----------------------------------------"
+
+# Update and install base dependencies
 run_with_sudo apt update
-run_with_sudo apt install -y git build-essential ripgrep fd-find curl
+run_with_sudo apt install -y git build-essential ripgrep fd-find curl fzf gpg wget
+
+echo ""
+echo "----------------------------------------"
+echo "Installing eza..."
+echo "----------------------------------------"
+
+# Install eza from official eza-community repository
+if ! command -v eza &> /dev/null; then
+    echo "Downloading and installing eza..."
+    run_with_sudo mkdir -p /etc/apt/keyrings
+    wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | run_with_sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
+    echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | run_with_sudo tee /etc/apt/sources.list.d/gierens.list
+    run_with_sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
+    run_with_sudo apt update
+    run_with_sudo apt install -y eza
+    echo "✓ eza installed successfully!"
+else
+    echo "✓ eza already installed, skipping..."
+fi
+
+echo ""
+echo "----------------------------------------"
+echo "Installing zoxide..."
+echo "----------------------------------------"
+
+# Install zoxide from official install script
+if ! command -v zoxide &> /dev/null; then
+    echo "Downloading and installing zoxide..."
+    curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+    echo "✓ zoxide installed successfully!"
+else
+    echo "✓ zoxide already installed, skipping..."
+fi
+
+echo ""
+echo "----------------------------------------"
+echo "Configuring Bashrc..."
+echo "----------------------------------------"
+
+# Backup existing .bashrc
+if [ -f ~/.bashrc ]; then
+    echo "Backing up existing .bashrc..."
+    cp ~/.bashrc ~/.bashrc.backup.$(date +%Y%m%d_%H%M%S)
+fi
+
+# Check if our custom configuration already exists
+if ! grep -q "# Custom Configuration - Added by setup script" ~/.bashrc 2>/dev/null; then
+    echo "Adding custom bashrc configuration..."
+    
+    cat >> ~/.bashrc << 'EOF'
+
+# ==========================================
+# Custom Configuration - Added by setup script
+# ==========================================
+
+# Bash history configuration
+export HISTFILE=~/.bash_history
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+export HISTCONTROL=ignorespace:erasedups
+export HISTIGNORE="&:ls:ll:la:l.:pwd:exit:clear:history"
+
+# Enable history options
+shopt -s histappend    # Append to history file, don't overwrite
+shopt -s cmdhist       # Save multi-line commands as one entry
+shopt -s lithist       # Preserve newlines in history
+
+# Setup color for bash
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
+# To enable vim motions in bash shell
+set -o vi
+
+# Clear alias
+alias cl='clear'
+
+# For server - fzf key bindings
+if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+    source /usr/share/doc/fzf/examples/key-bindings.bash
+fi
+
+# Initialize zoxide if available
+if command -v zoxide &> /dev/null; then
+    eval "$(zoxide init bash)"
+    
+    # Use zoxide's interactive mode with fzf
+    zi() {
+      local dir
+      dir=$(zoxide query -i -- "$@") && cd "$dir"
+    }
+    
+    # Alt + d to open recent dir and search
+    bind '"\ed":"zi\n"'
+fi
+
+# fd-find alias
+alias fd=fdfind
+
+# Find and open files with fzf
+ff() {
+  local file editor
+  editor=$(command -v nvim || command -v vim)
+  file=$(fdfind -HI --type f . | fzf --preview 'sed -n "1,200p" {}' --height 40% --reverse )
+  [ -n "$file" ] && "$editor" "$file"
+}
+
+# eza aliases (modern ls replacement)
+if command -v eza &> /dev/null; then
+    alias ls='eza'
+    alias ll='eza -lah'
+    alias l='eza -lh'
+fi
+
+EOF
+    echo "✓ Bashrc configuration added successfully!"
+else
+    echo "✓ Custom bashrc configuration already exists, skipping..."
+fi
 
 echo ""
 echo "----------------------------------------"
@@ -246,10 +367,12 @@ run_with_sudo mkdir -p /opt/nvim
 echo "Installing Neovim to /opt/nvim..."
 run_with_sudo mv nvim-linux-x86_64/* /opt/nvim/
 
-# Add to PATH permanently
+# Add Neovim to PATH if not already there
 if ! grep -q 'export PATH=.*:/opt/nvim/bin' ~/.bashrc; then
+    echo '' >> ~/.bashrc
+    echo '# Add Neovim to PATH' >> ~/.bashrc
     echo 'export PATH="$PATH:/opt/nvim/bin"' >> ~/.bashrc
-    echo "Added Neovim to PATH in ~/.bashrc"
+    echo "✓ Added Neovim to PATH in ~/.bashrc"
 fi
 
 # Clean up Neovim installation files
@@ -258,7 +381,7 @@ rm -rf nvim-linux-x86_64 nvim-linux-x86_64.tar.gz
 
 echo ""
 echo "----------------------------------------"
-echo "Installing Neovim configuration..."
+echo "Installing Neovim Configuration..."
 echo "----------------------------------------"
 
 # Backup existing Neovim config if it exists
@@ -274,18 +397,32 @@ mkdir -p ~/.config
 echo "Cloning nvim-config from GitHub..."
 git clone https://github.com/madhu-basavanna/nvim-config.git ~/.config/nvim
 
-echo ""
-echo "=========================================="
-echo "✓ Dependencies installed successfully!"
-echo "✓ Neovim installed successfully!"
-echo "✓ Configuration cloned successfully!"
-echo "=========================================="
+
+echo "Installed tools:"
+echo "  - Git, build-essential, ripgrep, fd-find"
+echo "  - fzf (fuzzy finder)"
+echo "  - eza (modern ls)"
+echo "  - zoxide (smart cd)"
+echo "  - Neovim (latest)"
 echo ""
 echo "Next steps:"
 echo "1. Run: exec bash"
-echo "   (or restart your terminal)"
+echo "   (or restart your terminal to load new configuration)"
 echo "2. Launch nvim and let lazy.nvim install plugins"
 echo "3. Run :checkhealth in nvim to verify installation"
+echo ""
+echo "Useful aliases configured:"
+echo "  - ff: Find and open files with fzf"
+echo "  - zi: Interactive directory navigation"
+echo "  - Alt+d: Quick directory search"
+echo "  - ll, l, ls: Enhanced with eza"
+echo "  - cl: clear screen"
+echo "  - fd: fdfind alias"
+echo ""
+echo "Features enabled:"
+echo "  - Vi mode in bash (use ESC for normal mode)"
+echo "  - Enhanced history (10000 commands, no duplicates)"
+echo "  - Colored prompt"
 echo ""
 ```
 </details>
