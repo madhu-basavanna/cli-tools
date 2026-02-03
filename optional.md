@@ -318,8 +318,11 @@ if command -v zoxide &> /dev/null; then
     bind '"\ed":"zi\n"'
 fi
 
-# fd-find alias
+# alias
 alias fd=fdfind
+alias lg=lazygit
+alias ld=lazydocker
+alias gst=git status
 
 # Find and open files with fzf
 ff() {
