@@ -339,6 +339,8 @@ if command -v eza &> /dev/null; then
     alias l='eza -lh'
 fi
 
+export PATH="$HOME/.local/bin:$PATH"
+
 EOF
     echo "✓ Bashrc configuration added successfully!"
 else
