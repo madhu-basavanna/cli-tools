@@ -222,7 +222,7 @@ echo "----------------------------------------"
 
 # Update and install base dependencies
 run_with_sudo apt update
-run_with_sudo apt install -y git build-essential ripgrep fd-find curl fzf gpg wget
+run_with_sudo apt install -y git build-essential ripgrep fd-find curl fzf gpg wget unzip python3-dev python3-venv
 
 echo ""
 echo "----------------------------------------"
