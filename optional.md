@@ -322,7 +322,7 @@ fi
 alias fd=fdfind
 alias lg=lazygit
 alias ld=lazydocker
-alias gst=git status
+alias gst='git status'
 
 # Find and open files with fzf
 ff() {
