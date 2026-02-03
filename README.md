@@ -32,7 +32,13 @@ sudo update-alternatives --config x-terminal-emulator
 ### 3. Install zsh, curl, stow, fzf, zoxide, ripgrep and fd-find
 
 ```bash
-sudo nala install git pass curl fzf zoxide fd-find stow zsh fastfetch eza btop python3-dev python3-venv
+sudo nala install git pass curl fzf zoxide fd-find stow zsh fastfetch eza btop unzip
+```
+
+### 4. Python dev essentials
+
+```bash
+sudo nala install python3-dev python3-venv
 ```
 
 Change shell from bash to zsh
