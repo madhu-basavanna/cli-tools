@@ -431,3 +431,9 @@ echo "  - Colored prompt"
 echo ""
 ```
 </details>
+
+<details>
+<summary>Sync files between devices "CROC"</summary>
+    
+[croc](https://github.com/schollz/croc)
+</details>
