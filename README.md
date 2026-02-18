@@ -32,7 +32,7 @@ sudo update-alternatives --config x-terminal-emulator
 ### 3. Install zsh, curl, stow, fzf, zoxide, ripgrep and fd-find
 
 ```bash
-sudo nala install git pass curl fzf zoxide fd-find stow zsh fastfetch eza btop unzip
+sudo nala install git pass curl fzf zoxide fd-find stow zsh fastfetch eza btop unzip bat
 ```
 
 ### 4. Python dev essentials
