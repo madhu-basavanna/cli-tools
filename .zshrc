@@ -157,6 +157,7 @@ alias ls='eza'
 alias ll='eza -lah --icons'
 alias l='eza -lh --icons'
 alias ki='kitten icat'
+alias bc='batcat'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
