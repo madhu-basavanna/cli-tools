@@ -103,6 +103,15 @@ if [ -f ~/.config/shell/zellij.sh ]; then
   source ~/.config/shell/zellij.sh
 fi
 
+# Play youtube music
+ym() {
+    if [ -z "$1" ]; then
+        echo "Usage: yp <youtube-video-url>"
+        return 1
+    fi
+    mpv --no-video "$1"
+}
+
 alias cl=clear
 alias ld=lazydocker
 alias lg=lazygit
