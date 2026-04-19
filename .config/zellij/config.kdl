@@ -1,6 +1,3 @@
-copy_command "wl-copy"
-paste_command "wl-paste"
-
 keybinds clear-defaults=true {
     locked {
         bind "Ctrl g" { SwitchToMode "normal"; }
@@ -428,4 +425,4 @@ load_plugins {
 // (Requires restart)
 // Default: true (if the host terminal supports it)
 // 
-// support_kitty_keyboard_protocol false
+support_kitty_keyboard_protocol true

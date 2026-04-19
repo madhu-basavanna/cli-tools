@@ -123,7 +123,7 @@ alias ls='eza'
 alias ll='eza -lah --icons'
 alias l='eza -lh --icons'
 alias ki='kitten icat'
-alias bc='batcat'
+alias bat='batcat'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -135,9 +135,11 @@ export VISUAL=nvim
 export GPG_TTY=$(tty)
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
-# . "$HOME/.local/bin/env"
+
+. "$HOME/.local/bin/env"
+
 #export GITLAB_TOKEN=$(pass show gitlab)
 #export GITHUB_TOKEN=$(pass show github)
 #export HF_TOKEN=$(pass show hf)
 
-export PATH="/usr/sbin:/sbin:$PATH"
+export PATH=$PATH:/usr/sbin
