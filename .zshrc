@@ -55,6 +55,8 @@ eval "$(fzf --zsh)"
 
 eval "$(zoxide init zsh)"
 
+export PATH="$PATH:/opt/nvim/bin"
+
 # Use zoxide's interactive mode with fzf as a zsh widget
 zi-widget() {
   local dir
@@ -133,8 +135,9 @@ export VISUAL=nvim
 export GPG_TTY=$(tty)
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
-. "$HOME/.local/bin/env"
+# . "$HOME/.local/bin/env"
 #export GITLAB_TOKEN=$(pass show gitlab)
 #export GITHUB_TOKEN=$(pass show github)
 #export HF_TOKEN=$(pass show hf)
 
+export PATH="/usr/sbin:/sbin:$PATH"
