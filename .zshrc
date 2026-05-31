@@ -133,13 +133,15 @@ export TERM=xterm-256color
 export EDITOR=nvim
 export VISUAL=nvim
 export GPG_TTY=$(tty)
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/go/bin:$PATH"
-
-. "$HOME/.local/bin/env"
 
 #export GITLAB_TOKEN=$(pass show gitlab)
 #export GITHUB_TOKEN=$(pass show github)
 #export HF_TOKEN=$(pass show hf)
 
-export PATH=$PATH:/usr/sbin
+. "$HOME/.local/bin/env"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+export PATH="$PATH:/usr/sbin"
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export DOCKER_HOST=unix:///run/user/1000/docker.sock
