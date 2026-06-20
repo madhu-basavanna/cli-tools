@@ -55,6 +55,8 @@ eval "$(fzf --zsh)"
 
 eval "$(zoxide init zsh)"
 
+eval "$($HOME/.local/bin/mise activate zsh)"
+
 export PATH="$PATH:/opt/nvim/bin"
 
 # Use zoxide's interactive mode with fzf as a zsh widget
