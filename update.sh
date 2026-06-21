@@ -7,7 +7,7 @@ set -e
 # CONFIGURATION & COLORS
 # ==============================================================================
 GREEN="\033[1;32m"
-YELLOW="\033[1;33m"
+YELLOW="\033[1;33}m"
 BLUE="\033[1;34m"
 RED="\033[1;31m"
 RESET="\033[0m"
@@ -40,36 +40,48 @@ update_system() {
 # 2. BTOP UPDATER
 # ==============================================================================
 update_btop() {
-    echo -e "\n${YELLOW}---> [2/3] Starting btop Update <---${RESET}"
+    echo -e "\n${YELLOW}---> [2/3] Checking btop Update <---${RESET}"
+
+    # Fetch latest release tag from GitHub
+    echo -e "${YELLOW}[*] Checking GitHub for the latest btop version...${RESET}"
+    LATEST_TAG=$(curl -s https://api.github.com/repos/aristocratos/btop/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+
+    if [ -z "$LATEST_TAG" ]; then
+        echo -e "${RED}[!] Error: Could not fetch the latest version tag from GitHub for btop.${RESET}"
+        return 1
+    fi
+
+    # Check local version if btop is installed
+    if command -v btop &> /dev/null; then
+        # 'btop -v' outputs something like "btop version: 1.3.0"
+        CURRENT_VERSION="v$(btop -v | awk '{print $3}')"
+        
+        echo -e "${BLUE}[*] Installed btop version: $CURRENT_VERSION${RESET}"
+        echo -e "${BLUE}[*] Latest GitHub version:    $LATEST_TAG${RESET}"
+
+        if [ "$CURRENT_VERSION" = "$LATEST_TAG" ]; then
+            echo -e "${GREEN}[+] btop is already up to date. Skipping update.${RESET}"
+            return 0
+        fi
+    else
+        echo -e "${YELLOW}[*] btop is not currently installed.${RESET}"
+    fi
+
+    echo -e "${YELLOW}[*] Proceeding with btop installation/upgrade...${RESET}"
 
     # Clean up any previous installations
     if command -v btop &> /dev/null; then
-        echo -e "${YELLOW}[*] Previous btop installation detected at $(which btop). Removing old binary...${RESET}"
+        echo -e "${YELLOW}[*] Removing old binary...${RESET}"
         sudo rm -f "$(command -v btop)"
-
         if [ -d "/usr/local/share/btop" ]; then
             sudo rm -rf /usr/local/share/btop
         fi
-    else
-        echo -e "${GREEN}[*] No previous btop installation found. Proceeding with clean install.${RESET}"
     fi
 
     # Create temporary directory
     TEMP_DIR=$(mktemp -d)
     OLD_PWD=$(pwd)
     cd "$TEMP_DIR"
-    echo -e "${YELLOW}[*] Created temporary directory at $TEMP_DIR${RESET}"
-
-    # Fetch latest release tag
-    echo -e "${YELLOW}[*] Checking GitHub for the latest btop version...${RESET}"
-    LATEST_TAG=$(curl -s https://api.github.com/repos/aristocratos/btop/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-
-    if [ -z "$LATEST_TAG" ]; then
-        echo -e "${RED}[!] Error: Could not fetch the latest version tag from GitHub for btop.${RESET}"
-        cd "$OLD_PWD"
-        return 1
-    fi
-    echo -e "${GREEN}[+] Found latest btop version: $LATEST_TAG${RESET}"
 
     # Download
     BINARY_URL="https://github.com/aristocratos/btop/releases/download/${LATEST_TAG}/btop-x86_64-unknown-linux-musl.tar.gz"
@@ -99,7 +111,34 @@ update_btop() {
 # 3. ZELLIJ UPDATER
 # ==============================================================================
 update_zellij() {
-    echo -e "\n${YELLOW}---> [3/3] Starting Zellij Update <---${RESET}"
+    echo -e "\n${YELLOW}---> [3/3] Checking Zellij Update <---${RESET}"
+
+    # Fetch latest release tag from GitHub
+    echo -e "${YELLOW}[*] Checking GitHub for the latest Zellij version...${RESET}"
+    LATEST_TAG=$(curl -s https://api.github.com/repos/zellij-org/zellij/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+
+    if [ -z "$LATEST_TAG" ]; then
+        echo -e "${RED}[!] Error: Could not fetch the latest version tag from GitHub for Zellij.${RESET}"
+        return 1
+    fi
+
+    # Check local version if zellij is installed
+    if command -v zellij &> /dev/null; then
+        # 'zellij --version' outputs something like "zellij 0.40.1"
+        CURRENT_VERSION="v$(zellij --version | awk '{print $2}')"
+
+        echo -e "${BLUE}[*] Installed Zellij version: $CURRENT_VERSION${RESET}"
+        echo -e "${BLUE}[*] Latest GitHub version:    $LATEST_TAG${RESET}"
+
+        if [ "$CURRENT_VERSION" = "$LATEST_TAG" ]; then
+            echo -e "${GREEN}[+] Zellij is already up to date. Skipping update.${RESET}"
+            return 0
+        fi
+    else
+        echo -e "${YELLOW}[*] Zellij is not currently installed.${RESET}"
+    fi
+
+    echo -e "${YELLOW}[*] Proceeding with Zellij installation/upgrade...${RESET}"
 
     TEMP_DIR=$(mktemp -d)
     OLD_PWD=$(pwd)
@@ -121,8 +160,6 @@ update_zellij() {
     if [ -f /usr/local/bin/zellij ]; then
         echo -e "${YELLOW}[*] Found existing installation at /usr/local/bin/zellij. Removing it...${RESET}"
         sudo rm /usr/local/bin/zellij
-    else
-        echo -e "${GREEN}[*] No existing installation found at /usr/local/bin/zellij.${RESET}"
     fi
 
     echo -e "${YELLOW}[*] Moving new binary to /usr/local/bin/...${RESET}"
@@ -132,7 +169,7 @@ update_zellij() {
     cd "$OLD_PWD"
     rm -rf "$TEMP_DIR"
 
-    echo -e "${GREEN}[+] Done! Zellij version $(${MACOS_OR_LINUX:-/usr/local/bin/zellij} --version) has been updated successfully.${RESET}"
+    echo -e "${GREEN}[+] Done! Zellij has been updated to version $LATEST_TAG.${RESET}"
 }
 
 # ==============================================================================
