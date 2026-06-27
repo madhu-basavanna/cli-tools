@@ -40,7 +40,7 @@ update_system() {
 # 2. BTOP UPDATER
 # ==============================================================================
 update_btop() {
-    echo -e "\n${YELLOW}---> [2/3] Checking btop Update <---${RESET}"
+        echo -e "\n${YELLOW}---> [2/3] Checking btop Update <---${RESET}"
 
     # Fetch latest release tag from GitHub
     echo -e "${YELLOW}[*] Checking GitHub for the latest btop version...${RESET}"
@@ -55,7 +55,7 @@ update_btop() {
     if command -v btop &> /dev/null; then
         # 'btop -v' outputs something like "btop version: 1.3.0"
         CURRENT_VERSION="v$(btop -v | awk '{print $3}')"
-        
+
         echo -e "${BLUE}[*] Installed btop version: $CURRENT_VERSION${RESET}"
         echo -e "${BLUE}[*] Latest GitHub version:    $LATEST_TAG${RESET}"
 
@@ -78,33 +78,38 @@ update_btop() {
         fi
     fi
 
+    # Install required build dependencies
+    echo -e "${YELLOW}[*] Installing build dependencies...${RESET}"
+    sudo nala install -y build-essential git libgpiod-dev pkg-config
+
     # Create temporary directory
     TEMP_DIR=$(mktemp -d)
     OLD_PWD=$(pwd)
     cd "$TEMP_DIR"
 
-    # Download
-    BINARY_URL="https://github.com/aristocratos/btop/releases/download/${LATEST_TAG}/btop-x86_64-unknown-linux-musl.tar.gz"
-    echo -e "${YELLOW}[*] Downloading: $BINARY_URL${RESET}"
-    curl -L -O "$BINARY_URL"
-
-    # Extract and Install
-    echo -e "${YELLOW}[*] Extracting package...${RESET}"
-    tar -xf btop-x86_64-unknown-linux-musl.tar.gz
+    # Clone the repository
+    echo -e "${YELLOW}[*] Cloning btop repository (${LATEST_TAG})...${RESET}"
+    git clone --depth 1 --branch "$LATEST_TAG" https://github.com/aristocratos/btop.git
     cd btop
 
+    # Build with make
+    echo -e "${YELLOW}[*] Building btop...${RESET}"
+    make GPU_SUPPORT=true
+
+    # Install
     echo -e "${YELLOW}[*] Installing btop to system...${RESET}"
     sudo make install
 
     # Setcaps for power tracking
     echo -e "${YELLOW}[*] Setting capabilities for CPU power tracking...${RESET}"
     sudo make setcap
+    sudo make setuid
 
     # Clean up
     cd "$OLD_PWD"
     rm -rf "$TEMP_DIR"
 
-    echo -e "${GREEN}[+] Success! btop ${LATEST_TAG} has been installed.${RESET}"
+    echo -e "${GREEN}[+] Success! btop ${LATEST_TAG} has been installed from source.${RESET}"
 }
 
 # ==============================================================================
