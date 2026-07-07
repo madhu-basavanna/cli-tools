@@ -1,4 +1,3 @@
-[pager]
-	diff = delta
-	log = delta
-	show = delta
+[user]
+	email = madhupatel135@gmail.com
+	name = Madhu Basavanna

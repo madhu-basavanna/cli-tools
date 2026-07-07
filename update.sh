@@ -21,7 +21,7 @@ echo -e "${BLUE}========================================= ${RESET}"
 # ==============================================================================
 update_system() {
     echo -e "\n${YELLOW}---> [1/3] Starting System OS Update <---${RESET}"
-    
+
     if ! command -v nala &> /dev/null; then
         echo -e "${RED}Error: 'nala' is not installed. Skipping system update.${RESET}"
         return

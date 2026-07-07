@@ -1,3 +1,9 @@
+web_server true
+web_server_ip "0.0.0.0"
+web_server_port 443
+web_server_cert "/home/homelab/certificates/localhost+2.pem"
+web_server_key "/home/homelab/certificates/localhost+2-key.pem"
+
 keybinds clear-defaults=true {
     locked {
         bind "Ctrl g" { SwitchToMode "normal"; }

@@ -55,8 +55,6 @@ eval "$(fzf --zsh)"
 
 eval "$(zoxide init zsh)"
 
-eval "$($HOME/.local/bin/mise activate zsh)"
-
 export PATH="$PATH:/opt/nvim/bin"
 
 # Use zoxide's interactive mode with fzf as a zsh widget
@@ -136,9 +134,11 @@ export EDITOR=nvim
 export VISUAL=nvim
 export GPG_TTY=$(tty)
 
-#export GITLAB_TOKEN=$(pass show gitlab)
-#export GITHUB_TOKEN=$(pass show github)
-#export HF_TOKEN=$(pass show hf)
+# Load API keys from pass
+if command -v pass &>/dev/null; then
+    export HF_TOKEN="$(pass show tokens/huggingface 2>/dev/null)"
+    export TS_AUTHKEY="$(pass show tokens/tailscale 2>/dev/null)"
+fi
 
 . "$HOME/.local/bin/env"
 export PATH="$HOME/.cargo/bin:$PATH"
