@@ -138,7 +138,7 @@ run '~/.tmux/plugins/tpm/tpm'
 
 ### 1. Download
 ```bash
-curl -L -o zellij.tar.gz "https://github.com/zellij-org/zellij/releases/latest/download/zellij-no-web-x86_64-unknown-linux-musl.tar.gz"
+curl -L -o zellij.tar.gz "https://github.com/zellij-org/zellij/releases/latest/download/zellij-x86_64-unknown-linux-gnu.tar.gz"
 ```
 ### 2. Verify it arrived
 ```bash
