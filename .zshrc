@@ -14,6 +14,8 @@ source "${ZINIT_HOME}/zinit.zsh"
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
+zinit ice as"program" from"gh-r" pick"zsh-patina-*/zsh-patina" atload'eval "$(zsh-patina activate)" && eval "$(zsh-patina completion)"'
+zinit light michel-kraemer/zsh-patina
 
 # Add in snippets
 zinit snippet OMZP::git
@@ -54,6 +56,8 @@ PROMPT='%F{green}%n%f@%F{blue}%m%f:%F{yellow}%~%f'$'\n''%# '
 eval "$(fzf --zsh)"
 
 eval "$(zoxide init zsh)"
+
+eval "$($HOME/.local/bin/mise activate zsh)"
 
 export PATH="$PATH:/opt/nvim/bin"
 
@@ -124,6 +128,15 @@ alias ll='eza -lah --icons'
 alias l='eza -lh --icons'
 alias ki='kitten icat'
 alias bat='batcat'
+llm() {
+  curl -s http://192.168.3.71:8080/v1/models | jq '{
+    model_name: .data[0].id,
+    context: .data[0].meta.n_ctx,
+    parameters: .data[0].meta.n_params,
+    size_gb: (.data[0].meta.size / 1e9 | floor),
+    capabilities: .models[0].capabilities
+  }'
+}
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -134,12 +147,6 @@ export EDITOR=nvim
 export VISUAL=nvim
 export GPG_TTY=$(tty)
 
-# Load API keys from pass
-if command -v pass &>/dev/null; then
-    export HF_TOKEN="$(pass show tokens/huggingface 2>/dev/null)"
-    export TS_AUTHKEY="$(pass show tokens/tailscale 2>/dev/null)"
-fi
-
 . "$HOME/.local/bin/env"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
@@ -147,3 +154,8 @@ export PATH="$PATH:/usr/sbin"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export DOCKER_HOST=unix:///run/user/1000/docker.sock
+export FORGEJO_URL=http://192.168.3.165:3000
+export FORGEJO_USERNAME=madhu
+export FORGEJO_OWNER=madhu
+export FORGEJO_REPO=nvim-releases
+export FORGEJO_TOKEN=$FORGEJO_TOKEN
